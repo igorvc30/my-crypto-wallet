@@ -2,7 +2,11 @@
 
 ## Description
 
-Project created using React, Typescript, Vite,
+0# - Crypto wallet
+
+Project created using React, Typescript, Vite, Tanstack Query, Tanstack Router
+
+Routes created using the File-Based Routing, recommended by the [official docs](https://tanstack.com/router/latest/docs/framework/react/routing/file-based-routing)
 
 ### Prerequisites
 
