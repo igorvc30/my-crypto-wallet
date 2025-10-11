@@ -1,4 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Typography, Button } from "antd";
+
+const { Title } = Typography;
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -7,7 +10,8 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <div className="index">
-      <h1>Zero Hash Challenge</h1>
+      <Title level={1}>Zero Hash Challenge </Title>
+      <Button type="primary">Primary Button</Button>
     </div>
   );
 }
