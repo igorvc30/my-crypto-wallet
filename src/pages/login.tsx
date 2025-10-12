@@ -30,7 +30,7 @@ export default function LoginPage() {
     try {
       await auth.login(username!, password!);
       // Navigate to the redirect URL using router navigation
-      navigate({ to: "/home" });
+      navigate({ to: "/" });
     } catch (err) {
       setError("Invalid username or password");
     } finally {
