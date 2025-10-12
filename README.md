@@ -8,6 +8,8 @@ Project created using React, Typescript, Vite, Tanstack Query, Tanstack Router
 
 Routes created using the File-Based Routing, recommended by the [official docs](https://tanstack.com/router/latest/docs/framework/react/routing/file-based-routing)
 
+Authentication flow from [official docs example](https://tanstack.com/router/latest/docs/framework/react/how-to/setup-authentication)
+
 ### Prerequisites
 
 - Node JS Installed https://nodejs.org/en/download
