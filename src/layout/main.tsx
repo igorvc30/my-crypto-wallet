@@ -3,13 +3,16 @@ import Header from "../components/Header";
 const { Content } = Layout;
 
 const contentStyle: React.CSSProperties = {
-  minHeight: 120,
   display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  padding: 12,
 };
 
 const layoutStyle = {
   borderRadius: 8,
-  overflow: "hidden",
+  display: "flex",
+  backgroundColor: "inherit",
 };
 
 export default function MainLayout({
@@ -20,7 +23,17 @@ export default function MainLayout({
   return (
     <Layout style={layoutStyle}>
       <Header />
-      <Content style={contentStyle}>{children}</Content>
+      <Content style={contentStyle}>
+        <div
+          style={{
+            maxWidth: 800,
+            background: "white",
+            borderRadius: 8,
+          }}
+        >
+          {children}
+        </div>
+      </Content>
     </Layout>
   );
 }

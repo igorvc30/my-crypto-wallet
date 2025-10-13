@@ -17,6 +17,7 @@
     "@tanstack/react-router": "^1.132.47",
     "@tanstack/react-router-devtools": "^1.132.51",
     "antd": "^5.27.4",
+    "date-fns": "^4.1.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },
