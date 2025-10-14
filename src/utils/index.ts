@@ -45,3 +45,8 @@ export function getTimeFromNow(timestamp: string) {
   });
   return `${monthsDiff > 0 ? "More than " : ""}${result}`;
 }
+
+export function getFormattedDate(timestamp: string) {
+  const result = format(new Date(timestamp), "dd MMMM yyyy, hh:mm");
+  return result;
+}

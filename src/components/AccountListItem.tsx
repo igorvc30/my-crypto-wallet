@@ -8,22 +8,38 @@ import type { Account } from "../types";
 
 import { ExchangeRates } from "../constants";
 
-export default function AccountListItem({ item }: { item: Account }) {
+export default function AccountListItem({
+  item,
+  onClick,
+}: {
+  item: Account;
+  onClick: (accountId: string) => void;
+}) {
+  const handleItemClick = () => {
+    onClick(item.id);
+  };
+
   return (
     <List.Item
       key={item.id}
+      onClick={handleItemClick}
+      style={{ cursor: "pointer" }}
       actions={[
         <span>Created at {getFormattedFullDate(item.createdAt)}</span>,
         <span>Last deposit {getTimeFromNow(item.lastDeposit)}</span>,
-        <span>Last transfer {item.lastTransfer}</span>,
+        <span>Last transfer {getTimeFromNow(item.lastTransfer)}</span>,
       ]}
       extra={
-        <div style={{ paddingLeft: 8 }}>
+        <div
+          style={{
+            paddingLeft: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "end",
+          }}
+        >
           <p style={{ fontSize: 18, color: "#143720", fontWeight: "bold" }}>
-            {getFormattedAmount({
-              currency: item.asset,
-              value: item.balance,
-            })}
+            {`${item.balance} ${item.asset}`}
           </p>
           <p>
             {getFormattedAmount({

@@ -1,3 +1,4 @@
+type Asset = "XRP" | "BTC" | "ETH";
 export interface User {
   id: string;
   username: string;
@@ -9,7 +10,7 @@ export interface Account {
   id: string;
   userId: string;
   nickname: string;
-  asset: "XRP" | "BTC" | "ETH";
+  asset: Asset;
   address: string;
   transferLimit: number;
   balance: number;
@@ -20,4 +21,21 @@ export interface Account {
 
 export interface GetAccountsResponse {
   accounts: Array<Account>;
+}
+
+interface AccountDetails {
+  accountId: string;
+  username: string;
+  address: string;
+}
+export interface AccountTransfer {
+  id: string;
+  amount: number;
+  asset: Asset;
+  from: AccountDetails;
+  to: AccountDetails;
+  createdAt: string;
+}
+export interface GetAccountsTransfersResponse {
+  transfers: Array<AccountTransfer>;
 }

@@ -4,11 +4,11 @@ const apiUrl = import.meta.env.VITE_API_URL;
  */
 export default async function getPastOrders(
   userId: string,
-  page: number,
+  accountId: string,
   token: string,
 ) {
   const response = await fetch(
-    `${apiUrl}/users/${userId}/accounts?page=${page}`,
+    `${apiUrl}/users/${userId}/accounts/${accountId}/transfers`,
     {
       headers: {
         Authorization: token!,
