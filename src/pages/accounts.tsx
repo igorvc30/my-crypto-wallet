@@ -106,7 +106,7 @@ export default function AccountsPage() {
           size="large"
           onClick={() =>
             navigate({
-              to: "/create",
+              to: "/add",
             })
           }
         >

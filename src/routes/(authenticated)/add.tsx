@@ -1,7 +1,7 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
-import CreateAccountPage from "../../pages/create";
+import AddAccountPage from "../../pages/add";
 
-export const Route = createFileRoute("/(authenticated)/create")({
+export const Route = createFileRoute("/(authenticated)/add")({
   beforeLoad: ({ context, location }) => {
     if (!context.auth.isAuthenticated) {
       throw redirect({
@@ -13,5 +13,5 @@ export const Route = createFileRoute("/(authenticated)/create")({
       });
     }
   },
-  component: CreateAccountPage,
+  component: AddAccountPage,
 });

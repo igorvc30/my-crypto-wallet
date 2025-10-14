@@ -3,11 +3,12 @@ import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import LoginLayout from "../layout/login";
 import MainLayout from "../layout/main";
 import type { User } from "../types";
+import type { Login } from "../schemas";
 
 interface AuthState {
   isAuthenticated: boolean;
   user: User | null;
-  login: (username: string, password: string) => Promise<void>;
+  login: ({ username, password }: Login) => Promise<void>;
   logout: () => void;
 }
 

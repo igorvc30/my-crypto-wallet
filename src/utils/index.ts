@@ -50,3 +50,8 @@ export function getFormattedDate(timestamp: string) {
   const result = format(new Date(timestamp), "dd MMMM yyyy, hh:mm");
   return result;
 }
+
+export function formatErrorMessage(error: Error) {
+  const message = error.message;
+  return message.replace("_", " ").toLocaleLowerCase();
+}
