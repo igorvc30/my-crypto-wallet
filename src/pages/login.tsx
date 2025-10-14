@@ -4,10 +4,10 @@ import type { FormProps } from "antd";
 import { Button, Form, Input, Typography, Card } from "antd";
 
 const { Title } = Typography;
+
 type FieldType = {
-  username?: string;
-  password?: string;
-  remember?: string;
+  username: string;
+  password: string;
 };
 
 export default function LoginPage() {

@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as authenticatedIndexRouteImport } from './routes/(authenticated)/index'
 import { Route as authenticatedHomeRouteImport } from './routes/(authenticated)/home'
+import { Route as authenticatedCreateRouteImport } from './routes/(authenticated)/create'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -28,33 +29,47 @@ const authenticatedHomeRoute = authenticatedHomeRouteImport.update({
   path: '/home',
   getParentRoute: () => rootRouteImport,
 } as any)
+const authenticatedCreateRoute = authenticatedCreateRouteImport.update({
+  id: '/(authenticated)/create',
+  path: '/create',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
+  '/create': typeof authenticatedCreateRoute
   '/home': typeof authenticatedHomeRoute
   '/': typeof authenticatedIndexRoute
 }
 export interface FileRoutesByTo {
   '/login': typeof LoginRoute
+  '/create': typeof authenticatedCreateRoute
   '/home': typeof authenticatedHomeRoute
   '/': typeof authenticatedIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/login': typeof LoginRoute
+  '/(authenticated)/create': typeof authenticatedCreateRoute
   '/(authenticated)/home': typeof authenticatedHomeRoute
   '/(authenticated)/': typeof authenticatedIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/login' | '/home' | '/'
+  fullPaths: '/login' | '/create' | '/home' | '/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/login' | '/home' | '/'
-  id: '__root__' | '/login' | '/(authenticated)/home' | '/(authenticated)/'
+  to: '/login' | '/create' | '/home' | '/'
+  id:
+    | '__root__'
+    | '/login'
+    | '/(authenticated)/create'
+    | '/(authenticated)/home'
+    | '/(authenticated)/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
+  authenticatedCreateRoute: typeof authenticatedCreateRoute
   authenticatedHomeRoute: typeof authenticatedHomeRoute
   authenticatedIndexRoute: typeof authenticatedIndexRoute
 }
@@ -82,11 +97,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authenticatedHomeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/(authenticated)/create': {
+      id: '/(authenticated)/create'
+      path: '/create'
+      fullPath: '/create'
+      preLoaderRoute: typeof authenticatedCreateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
+  authenticatedCreateRoute: authenticatedCreateRoute,
   authenticatedHomeRoute: authenticatedHomeRoute,
   authenticatedIndexRoute: authenticatedIndexRoute,
 }

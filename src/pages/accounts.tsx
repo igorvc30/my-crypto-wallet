@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
-import { Button, List, Modal } from "antd";
+import { Button, List, Modal, Typography } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
+import { useNavigate } from "@tanstack/react-router";
+
 import AccountListItem from "../components/AccountListItem";
 import AccountTransferListItem from "../components/AccountTransferListItem";
-
 import getAccounts from "../api/getAccounts";
 import getAccountTransfers from "../api/getAccountTransfers";
 import { useAuth } from "../context/auth";
+const { Title } = Typography;
 
 import type {
   Account,
@@ -18,6 +21,7 @@ export default function AccountsPage() {
   const [page, setPage] = useState(0);
   const [list, setList] = useState<Array<Account>>([]);
   const [selectedAccountId, setSelectedAccountId] = useState("");
+  const navigate = useNavigate();
 
   const { user } = useAuth();
   const { data: accountsData, isLoading: isLoadingAccounts } =
@@ -83,6 +87,33 @@ export default function AccountsPage() {
 
   return (
     <>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          paddingLeft: 24,
+          paddingRight: 24,
+        }}
+      >
+        <Title level={2} style={{ color: "#143720" }}>
+          Accounts
+        </Title>
+        <Button
+          type="primary"
+          style={{ background: "#143720" }}
+          icon={<PlusOutlined />}
+          size="large"
+          onClick={() =>
+            navigate({
+              to: "/create",
+            })
+          }
+        >
+          Add New Account
+        </Button>
+      </div>
+
       <List
         itemLayout="vertical"
         size="small"
