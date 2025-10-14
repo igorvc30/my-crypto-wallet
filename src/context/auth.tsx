@@ -1,11 +1,12 @@
 import React, { createContext, useContext, useState } from "react";
 import postLogin from "../api/postLogin";
 import type { User } from "../types";
+import type { Login } from "../schemas";
 
 interface AuthState {
   isAuthenticated: boolean;
   user: User | null;
-  login: (username: string, password: string) => Promise<void>;
+  login: ({ username, password }: Login) => Promise<void>;
   logout: () => void;
 }
 
@@ -15,7 +16,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const login = async (username: string, password: string) => {
+  const login = async ({ username, password }: Login) => {
     const userData = await postLogin({ password, username });
     setUser(userData);
     setIsAuthenticated(true);

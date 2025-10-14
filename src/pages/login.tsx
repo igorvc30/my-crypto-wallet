@@ -2,13 +2,9 @@ import { useRouteContext, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import type { FormProps } from "antd";
 import { Button, Form, Input, Typography, Card } from "antd";
+import type { Login } from "../schemas";
 
 const { Title } = Typography;
-
-type FieldType = {
-  username: string;
-  password: string;
-};
 
 export default function LoginPage() {
   const context = useRouteContext({ from: "/login" });
@@ -20,15 +16,15 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const onFinish: FormProps<FieldType>["onFinish"] = async ({
+  const onFinish: FormProps<Login>["onFinish"] = async ({
     password,
     username,
-  }) => {
+  }: Login) => {
     setIsLoading(true);
     setError("");
 
     try {
-      await auth.login(username!, password!);
+      await auth.login({ username, password });
       // Navigate to the redirect URL using router navigation
       navigate({ to: "/" });
     } catch (err) {
@@ -38,9 +34,7 @@ export default function LoginPage() {
     }
   };
 
-  const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (
-    errorInfo,
-  ) => {
+  const onFinishFailed: FormProps<Login>["onFinishFailed"] = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
 
@@ -62,7 +56,7 @@ export default function LoginPage() {
         onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
-        <Form.Item<FieldType>
+        <Form.Item<Login>
           label="Username"
           name="username"
           rules={[{ required: true, message: "Please input your username!" }]}
@@ -70,7 +64,7 @@ export default function LoginPage() {
           <Input />
         </Form.Item>
 
-        <Form.Item<FieldType>
+        <Form.Item<Login>
           label="Password"
           name="password"
           rules={[{ required: true, message: "Please input your password!" }]}
@@ -78,7 +72,13 @@ export default function LoginPage() {
           <Input.Password />
         </Form.Item>
 
-        <Button type="primary" block htmlType="submit" loading={isLoading}>
+        <Button
+          type="primary"
+          style={{ background: "#143720" }}
+          block
+          htmlType="submit"
+          loading={isLoading}
+        >
           Submit
         </Button>
       </Form>
