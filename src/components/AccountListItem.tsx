@@ -6,8 +6,8 @@ import {
 } from "../utils";
 import type { Account } from "../types";
 
-import { ExchangeRates } from "../constants";
-
+import { EXCHANGE_RATES } from "../constants";
+const { Text } = Typography;
 export default function AccountListItem({
   item,
   onClick,
@@ -44,13 +44,13 @@ export default function AccountListItem({
           <p>
             {getFormattedAmount({
               currency: "BRL",
-              value: ExchangeRates[`${item.asset}BRL`] * item.balance,
+              value: EXCHANGE_RATES[`${item.asset}BRL`] * item.balance,
             })}
           </p>
           <p>
             {getFormattedAmount({
               currency: "USD",
-              value: ExchangeRates[`${item.asset}USD`] * item.balance,
+              value: EXCHANGE_RATES[`${item.asset}USD`] * item.balance,
             })}
           </p>
         </div>
@@ -61,16 +61,16 @@ export default function AccountListItem({
           <img width={48} height={48} alt="logo" src={`/${item.asset}.svg`} />
         }
         title={item.nickname}
-        description={item.address}
+        description={<Text copyable>{item.address}</Text>}
       />
 
-      <Typography.Text strong>
+      <Text strong>
         Transfer Limit:{" "}
         {getFormattedAmount({
           currency: item.asset,
           value: item.transferLimit,
         })}
-      </Typography.Text>
+      </Text>
     </List.Item>
   );
 }

@@ -7,7 +7,7 @@ import {
 import { getFormattedAmount, getFormattedDate } from "../utils";
 import type { AccountTransfer } from "../types";
 const { Text } = Typography;
-import { ExchangeRates } from "../constants";
+import { EXCHANGE_RATES } from "../constants";
 
 export default function AccountListItem({
   item,
@@ -58,7 +58,7 @@ export default function AccountListItem({
             {sign +
               getFormattedAmount({
                 currency: "USD",
-                value: ExchangeRates[`${item.asset}USD`] * item.amount,
+                value: EXCHANGE_RATES[`${item.asset}USD`] * item.amount,
               })}
           </span>
         </div>

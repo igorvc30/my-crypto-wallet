@@ -1,4 +1,4 @@
-export const ExchangeRates = {
+export const EXCHANGE_RATES = {
   BTCUSD: 115102.39,
   BTCBRL: 635123.48,
   ETHUSD: 4139.51,
@@ -6,3 +6,5 @@ export const ExchangeRates = {
   XRPUSD: 2.57,
   XRPBRL: 14.17,
 };
+
+export const ASSETS_AVAILABLE = ["BTC", "ETH", "XRP"];
