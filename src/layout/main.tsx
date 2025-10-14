@@ -6,7 +6,8 @@ const contentStyle: React.CSSProperties = {
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  padding: 12,
+  paddingTop: 12,
+  paddingBottom: 12,
 };
 
 const layoutStyle = {
