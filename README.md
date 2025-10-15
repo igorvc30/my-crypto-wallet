@@ -27,3 +27,20 @@ To install dependencies run `npm install`
 To run the project `npm run dev`
 
 ### Debugging Tools
+
+Tanstack Query DevTools
+Tanstack Router DevTools
+
+### Known Issues
+
+- Account Transfer form is breaking for long address in small devices
+- Fix redirect after login
+
+### Next Improvements
+
+- Remove inline css from component and move to another file
+- Override theme classes style to fix Select Input at Account Transfer Form
+- Improve Skeleton
+- Improve user session to avoid login again after page reload
+- Add breaking points for small devices
+- Update theme to stop repeating hardcoded color

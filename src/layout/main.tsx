@@ -26,6 +26,7 @@ export default function MainLayout({
     <Layout style={layoutStyle}>
       <Header />
       <Content style={contentStyle}>
+        {/* TODO: remove hardcoded width and add improve adaptability to small devices */}
         <div
           style={{
             flex: 1,
