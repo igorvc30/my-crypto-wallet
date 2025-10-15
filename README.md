@@ -10,6 +10,10 @@ Routes created using the File-Based Routing, recommended by the [official docs](
 
 Authentication flow from [official docs example](https://tanstack.com/router/latest/docs/framework/react/how-to/setup-authentication)
 
+Manual number input validation due to [antd form issue](https://www.exchangetuts.com/index.php/why-number-validate-rule-doesnt-work-in-antd-1641667924261289)
+
+Components organization inspired in [Atomic Design](https://medium.com/@janelle.wg/atomic-design-pattern-how-to-structure-your-react-application-2bb4d9ca5f97), using mainly Pages, Template (Layouts)
+
 ### Prerequisites
 
 - Node JS Installed https://nodejs.org/en/download
