@@ -1,4 +1,6 @@
-import { List, Typography } from "antd";
+import { Button, List, Typography } from "antd";
+import { HistoryOutlined, PlusOutlined, SendOutlined } from "@ant-design/icons";
+
 import {
   getFormattedAmount,
   getFormattedFullDate,
@@ -10,67 +12,106 @@ import { EXCHANGE_RATES } from "../constants";
 const { Text } = Typography;
 export default function AccountListItem({
   item,
-  onClick,
+  showTransferLog,
 }: {
   item: Omit<Account, "userId">;
-  onClick?: (accountId: string) => void;
+  showTransferLog?: (accountId: string) => void;
 }) {
   const handleItemClick = () => {
-    onClick?.(item.id);
+    showTransferLog?.(item.id);
   };
 
   return (
     <List.Item
       key={item.id}
-      onClick={handleItemClick}
-      style={onClick ? { cursor: "pointer" } : {}}
-      actions={[
-        <span>Created at {getFormattedFullDate(item.createdAt)}</span>,
-        item.lastDeposit && (
-          <span>Last deposit {getTimeFromNow(item.lastDeposit)}</span>
-        ),
-        item.lastTransfer && (
-          <span>Last transfer {getTimeFromNow(item.lastTransfer)}</span>
-        ),
-      ]}
       extra={
-        <div
-          style={{
-            paddingLeft: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "end",
-          }}
-        >
-          <p style={{ fontSize: 18, color: "#143720", fontWeight: "bold" }}>
-            {`${item.balance} ${item.asset}`}
-          </p>
-          <p>
-            {getFormattedAmount({
-              currency: "BRL",
-              value: EXCHANGE_RATES[`${item.asset}BRL`] * item.balance,
-            })}
-          </p>
-          <p>
-            {getFormattedAmount({
-              currency: "USD",
-              value: EXCHANGE_RATES[`${item.asset}USD`] * item.balance,
-            })}
-          </p>
+        <div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            {item.balance && (
+              <Button
+                icon={<SendOutlined />}
+                type="primary"
+                style={{ background: "#143720" }}
+              >
+                Transfer Tokens
+              </Button>
+            )}
+            {showTransferLog && (
+              <Button
+                icon={<HistoryOutlined />}
+                type="primary"
+                ghost
+                onClick={handleItemClick}
+              >
+                Transfer Log
+              </Button>
+            )}
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-end",
+            }}
+          >
+            <p style={{ fontSize: 18, color: "#143720", fontWeight: "bold" }}>
+              {`${item.balance} ${item.asset}`}
+            </p>
+            <span>
+              {getFormattedAmount({
+                currency: "BRL",
+                value: EXCHANGE_RATES[`${item.asset}BRL`] * item.balance,
+              })}
+            </span>
+            <span>
+              {getFormattedAmount({
+                currency: "USD",
+                value: EXCHANGE_RATES[`${item.asset}USD`] * item.balance,
+              })}
+            </span>
+          </div>
         </div>
       }
     >
-      <List.Item.Meta
-        avatar={
-          <img width={48} height={48} alt="logo" src={`/${item.asset}.svg`} />
-        }
-        title={item.nickname}
-        description={<Text copyable>{item.address}</Text>}
-      />
-
-      <Text strong>
-        {`Transfer Limit: ${item.transferLimit} ${item.asset}`}
-      </Text>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <div>
+          <List.Item.Meta
+            avatar={
+              <img
+                width={48}
+                height={48}
+                alt="logo"
+                src={`/${item.asset}.svg`}
+              />
+            }
+            title={item.nickname}
+            description={<Text copyable>{item.address}</Text>}
+          />
+          <Text strong>
+            {`Transfer Limit: ${item.transferLimit} ${item.asset}`}
+          </Text>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <Text strong italic>
+              Created at {getFormattedFullDate(item.createdAt)}
+            </Text>
+            {item.lastDeposit && (
+              <Text italic>
+                Last deposit {getTimeFromNow(item.lastDeposit)}
+              </Text>
+            )}
+            {item.lastTransfer && (
+              <Text italic>
+                Last transfer {getTimeFromNow(item.lastTransfer)}
+              </Text>
+            )}
+          </div>
+        </div>
+      </div>
     </List.Item>
   );
 }

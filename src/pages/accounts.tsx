@@ -120,7 +120,7 @@ export default function AccountsPage() {
         dataSource={list}
         footer={loadMore}
         renderItem={(item) => (
-          <AccountListItem item={item} onClick={showModal} />
+          <AccountListItem item={item} showTransferLog={showModal} />
         )}
       />
 
