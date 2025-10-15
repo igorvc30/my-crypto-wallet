@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, List, Modal, Typography } from "antd";
+import { Button, List, Modal, Skeleton, Spin, Typography } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
@@ -80,7 +80,13 @@ export default function AccountsPage() {
   };
 
   if (isLoadingAccounts) {
-    return <h1>LOADING</h1>;
+    return (
+      <Spin size="large">
+        <Skeleton title active paragraph />
+        <Skeleton active paragraph />
+        <Skeleton active paragraph />
+      </Spin>
+    );
   }
 
   const selectedAccount = list.find((item) => item.id);
@@ -131,7 +137,10 @@ export default function AccountsPage() {
         footer={null}
       >
         {isLoadingAccountTransfers ? (
-          <h1>LOADING</h1>
+          <Spin size="large">
+            <Skeleton title active paragraph />
+            <Skeleton active paragraph />
+          </Spin>
         ) : (
           <List
             itemLayout="vertical"

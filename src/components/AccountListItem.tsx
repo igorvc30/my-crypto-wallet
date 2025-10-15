@@ -1,4 +1,4 @@
-import { Button, List, Skeleton, Typography } from "antd";
+import { Button, List, Typography } from "antd";
 import { HistoryOutlined, SendOutlined } from "@ant-design/icons";
 import { useNavigate } from "@tanstack/react-router";
 
@@ -62,7 +62,7 @@ export default function AccountListItem({
             </span>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            {item.balance && (
+            {!!item.balance && (
               <Button
                 icon={<SendOutlined />}
                 type="primary"
@@ -93,23 +93,21 @@ export default function AccountListItem({
         }}
       >
         <div>
-          <Skeleton loading={true} active avatar>
-            <List.Item.Meta
-              avatar={
-                <img
-                  width={48}
-                  height={48}
-                  alt="logo"
-                  src={`/${item.asset}.svg`}
-                />
-              }
-              title={item.nickname}
-              description={<Text copyable>{item.address}</Text>}
-            />
-            <Text strong>
-              {`Transfer Limit: ${item.transferLimit} ${item.asset}`}
-            </Text>
-          </Skeleton>
+          <List.Item.Meta
+            avatar={
+              <img
+                width={48}
+                height={48}
+                alt="logo"
+                src={`/${item.asset}.svg`}
+              />
+            }
+            title={item.nickname}
+            description={<Text copyable>{item.address}</Text>}
+          />
+          <Text strong>
+            {`Transfer Limit: ${item.transferLimit} ${item.asset}`}
+          </Text>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <Text strong italic>
               Created at {getFormattedFullDate(item.createdAt)}

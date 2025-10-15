@@ -1,9 +1,12 @@
 import { Avatar, Layout, Typography, Dropdown, Space } from "antd";
+import { useNavigate } from "@tanstack/react-router";
 import { useAuth } from "../context/auth";
 const { Title } = Typography;
 
 export default function Header() {
   const { user, logout } = useAuth();
+
+  const navigate = useNavigate();
 
   const items = [
     {
@@ -11,6 +14,14 @@ export default function Header() {
       key: "1",
     },
   ];
+
+  const handleLogout = () => {
+    logout();
+    navigate({
+      to: "/login",
+      search: { redirect: "/" },
+    });
+  };
   return (
     <Layout.Header style={headerStyle}>
       <span style={{ fontSize: 24, color: "#d5fdd3" }}>0#</span>
@@ -18,7 +29,7 @@ export default function Header() {
         Zero Hash Wallet
       </Title>
       <div>
-        <Dropdown menu={{ items, onClick: logout }}>
+        <Dropdown menu={{ items, onClick: handleLogout }}>
           <a onClick={(e) => e.preventDefault()} style={{ color: "white" }}>
             <Space>
               {user?.username}
