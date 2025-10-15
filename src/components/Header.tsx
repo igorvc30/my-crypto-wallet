@@ -14,7 +14,7 @@ export default function Header() {
   return (
     <Layout.Header style={headerStyle}>
       <span style={{ fontSize: 24, color: "#d5fdd3" }}>0#</span>
-      <Title style={{ color: "white" }} level={2}>
+      <Title style={{ color: "white" }} level={3}>
         Zero Hash Wallet
       </Title>
       <div>

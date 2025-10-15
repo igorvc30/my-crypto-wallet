@@ -13,6 +13,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as authenticatedIndexRouteImport } from './routes/(authenticated)/index'
 import { Route as authenticatedHomeRouteImport } from './routes/(authenticated)/home'
 import { Route as authenticatedAddRouteImport } from './routes/(authenticated)/add'
+import { Route as authenticatedTransferAccountIdRouteImport } from './routes/(authenticated)/transfer/$accountId'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -34,18 +35,26 @@ const authenticatedAddRoute = authenticatedAddRouteImport.update({
   path: '/add',
   getParentRoute: () => rootRouteImport,
 } as any)
+const authenticatedTransferAccountIdRoute =
+  authenticatedTransferAccountIdRouteImport.update({
+    id: '/(authenticated)/transfer/$accountId',
+    path: '/transfer/$accountId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/add': typeof authenticatedAddRoute
   '/home': typeof authenticatedHomeRoute
   '/': typeof authenticatedIndexRoute
+  '/transfer/$accountId': typeof authenticatedTransferAccountIdRoute
 }
 export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/add': typeof authenticatedAddRoute
   '/home': typeof authenticatedHomeRoute
   '/': typeof authenticatedIndexRoute
+  '/transfer/$accountId': typeof authenticatedTransferAccountIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,18 +62,20 @@ export interface FileRoutesById {
   '/(authenticated)/add': typeof authenticatedAddRoute
   '/(authenticated)/home': typeof authenticatedHomeRoute
   '/(authenticated)/': typeof authenticatedIndexRoute
+  '/(authenticated)/transfer/$accountId': typeof authenticatedTransferAccountIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/login' | '/add' | '/home' | '/'
+  fullPaths: '/login' | '/add' | '/home' | '/' | '/transfer/$accountId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/login' | '/add' | '/home' | '/'
+  to: '/login' | '/add' | '/home' | '/' | '/transfer/$accountId'
   id:
     | '__root__'
     | '/login'
     | '/(authenticated)/add'
     | '/(authenticated)/home'
     | '/(authenticated)/'
+    | '/(authenticated)/transfer/$accountId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -72,6 +83,7 @@ export interface RootRouteChildren {
   authenticatedAddRoute: typeof authenticatedAddRoute
   authenticatedHomeRoute: typeof authenticatedHomeRoute
   authenticatedIndexRoute: typeof authenticatedIndexRoute
+  authenticatedTransferAccountIdRoute: typeof authenticatedTransferAccountIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -104,6 +116,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authenticatedAddRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/(authenticated)/transfer/$accountId': {
+      id: '/(authenticated)/transfer/$accountId'
+      path: '/transfer/$accountId'
+      fullPath: '/transfer/$accountId'
+      preLoaderRoute: typeof authenticatedTransferAccountIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -112,6 +131,7 @@ const rootRouteChildren: RootRouteChildren = {
   authenticatedAddRoute: authenticatedAddRoute,
   authenticatedHomeRoute: authenticatedHomeRoute,
   authenticatedIndexRoute: authenticatedIndexRoute,
+  authenticatedTransferAccountIdRoute: authenticatedTransferAccountIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

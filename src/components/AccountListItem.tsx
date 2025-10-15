@@ -1,5 +1,6 @@
 import { Button, List, Typography } from "antd";
-import { HistoryOutlined, PlusOutlined, SendOutlined } from "@ant-design/icons";
+import { HistoryOutlined, SendOutlined } from "@ant-design/icons";
+import { useNavigate } from "@tanstack/react-router";
 
 import {
   getFormattedAmount,
@@ -10,6 +11,7 @@ import type { Account } from "../types";
 
 import { EXCHANGE_RATES } from "../constants";
 const { Text } = Typography;
+
 export default function AccountListItem({
   item,
   showTransferLog,
@@ -17,8 +19,18 @@ export default function AccountListItem({
   item: Omit<Account, "userId">;
   showTransferLog?: (accountId: string) => void;
 }) {
+  const navigate = useNavigate();
+
   const handleItemClick = () => {
     showTransferLog?.(item.id);
+  };
+
+  const handleTransfer = () => {
+    navigate({
+      to: "/transfer/$accountId",
+      params: { accountId: item.id },
+      search: { asset: item.asset },
+    });
   };
 
   return (
@@ -26,27 +38,6 @@ export default function AccountListItem({
       key={item.id}
       extra={
         <div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            {item.balance && (
-              <Button
-                icon={<SendOutlined />}
-                type="primary"
-                style={{ background: "#143720" }}
-              >
-                Transfer Tokens
-              </Button>
-            )}
-            {showTransferLog && (
-              <Button
-                icon={<HistoryOutlined />}
-                type="primary"
-                ghost
-                onClick={handleItemClick}
-              >
-                Transfer Log
-              </Button>
-            )}
-          </div>
           <div
             style={{
               display: "flex",
@@ -69,6 +60,28 @@ export default function AccountListItem({
                 value: EXCHANGE_RATES[`${item.asset}USD`] * item.balance,
               })}
             </span>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            {item.balance && (
+              <Button
+                icon={<SendOutlined />}
+                type="primary"
+                style={{ background: "#143720" }}
+                onClick={handleTransfer}
+              >
+                Transfer Tokens
+              </Button>
+            )}
+            {showTransferLog && (
+              <Button
+                icon={<HistoryOutlined />}
+                type="primary"
+                ghost
+                onClick={handleItemClick}
+              >
+                Transfer Log
+              </Button>
+            )}
           </div>
         </div>
       }

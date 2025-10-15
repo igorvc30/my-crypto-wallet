@@ -53,5 +53,5 @@ export function getFormattedDate(timestamp: string) {
 
 export function formatErrorMessage(error: Error) {
   const message = error.message;
-  return message.replace("_", " ").toLocaleLowerCase();
+  return message.replaceAll("_", " ").toLocaleLowerCase();
 }
