@@ -1,16 +1,7 @@
-import { useState } from "react";
-import {
-  Button,
-  Form,
-  Input,
-  Typography,
-  Select,
-  Slider,
-  InputNumber,
-  Row,
-  Col,
-} from "antd";
-import type { InputNumberProps } from "antd";
+import { Button, Form, Input, Typography, Select, InputNumber } from "antd";
+import { HomeOutlined } from "@ant-design/icons";
+import { useNavigate } from "@tanstack/react-router";
+
 import type { AddAccount } from "../schemas";
 import { formatErrorMessage } from "../utils";
 import { ASSETS_AVAILABLE } from "../constants";
@@ -23,6 +14,7 @@ type Props = {
 };
 
 export function AddAccountForm({ onFinish, isPending, error }: Props) {
+  const navigate = useNavigate();
   return (
     <Form
       name="basic"
@@ -56,22 +48,34 @@ export function AddAccountForm({ onFinish, isPending, error }: Props) {
       </Form.Item>
 
       <Form.Item<AddAccount>
-        label="Transfer Limit"
+        label="Transfer Limit: "
         name="transferLimit"
         rules={[{ required: true, message: "Please input transfer limit!" }]}
       >
         <InputNumber min={0} max={1000} />
       </Form.Item>
-
-      <Button
-        type="primary"
-        style={{ background: "#143720" }}
-        block
-        htmlType="submit"
-        loading={isPending}
-      >
-        Submit
-      </Button>
+      <div style={{ display: "flex", gap: 20 }}>
+        <Button
+          block
+          icon={<HomeOutlined />}
+          onClick={() =>
+            navigate({
+              to: "/",
+            })
+          }
+        >
+          Go home
+        </Button>
+        <Button
+          type="primary"
+          style={{ background: "#143720" }}
+          htmlType="submit"
+          loading={isPending}
+          block
+        >
+          Submit
+        </Button>
+      </div>
       {error && (
         <Text type="danger">
           Please, double check your form. It's {formatErrorMessage(error)}

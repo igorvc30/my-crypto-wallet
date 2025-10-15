@@ -1,17 +1,23 @@
-import type { FormProps } from "antd";
-import { Typography, Card, notification } from "antd";
+import { Typography, notification, List, Button } from "antd";
 import { useMutation } from "@tanstack/react-query";
-import { AddAccountForm } from "../components/AddAccountForm";
+import { useNavigate } from "@tanstack/react-router";
+import { HomeOutlined } from "@ant-design/icons";
 
+import { AddAccountForm } from "../components/AddAccountForm";
+import AccountListItem from "../components/AccountListItem";
 import postAccounts from "../api/postAccounts";
 import { useAuth } from "../context/auth";
-import type { AddAccount } from "../schemas";
 import { formatErrorMessage } from "../utils";
+
+import type { FormProps } from "antd";
+import type { AddAccount } from "../schemas";
 
 const { Title } = Typography;
 
 export default function AddAccountPage() {
   const { user } = useAuth();
+
+  const navigate = useNavigate();
 
   const { data, mutate, isPending, error } = useMutation({
     mutationFn: postAccounts,
@@ -51,18 +57,54 @@ export default function AddAccountPage() {
   };
 
   return (
-    <Card
+    <div
       style={{
-        borderColor: "#143720",
-        borderWidth: 1,
+        display: "flex",
+        flexDirection: "column",
       }}
     >
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <div style={{ alignSelf: "center" }}>
         <Title level={2} style={{ color: "#143720" }}>
-          Add New Account
+          {data ? "New account created " : "Add new account"}
         </Title>
       </div>
-      <AddAccountForm onFinish={onFinish} isPending={isPending} error={error} />
-    </Card>
+      {data ? (
+        <>
+          <List
+            itemLayout="vertical"
+            size="large"
+            dataSource={[data]}
+            renderItem={(item) => <AccountListItem item={item} />}
+          />
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              paddingBottom: 24,
+            }}
+          >
+            <Button
+              style={{ width: "50%" }}
+              icon={<HomeOutlined />}
+              onClick={() =>
+                navigate({
+                  to: "/",
+                })
+              }
+            >
+              Go home
+            </Button>
+          </div>
+        </>
+      ) : (
+        <div style={{ paddingLeft: 24, paddingRight: 24, paddingBottom: 24 }}>
+          <AddAccountForm
+            onFinish={onFinish}
+            isPending={isPending}
+            error={error}
+          />
+        </div>
+      )}
+    </div>
   );
 }
