@@ -44,3 +44,4 @@ Tanstack Router DevTools
 - Improve user session to avoid login again after page reload
 - Add breaking points for small devices
 - Update theme to stop repeating hardcoded color
+- Move form validation from ANTD default to use ZOD scheme validation, current one is not reliable
