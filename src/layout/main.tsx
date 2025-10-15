@@ -8,6 +8,7 @@ const contentStyle: React.CSSProperties = {
   alignItems: "center",
   paddingTop: 12,
   paddingBottom: 12,
+  flex: 1,
 };
 
 const layoutStyle = {
@@ -27,6 +28,7 @@ export default function MainLayout({
       <Content style={contentStyle}>
         <div
           style={{
+            flex: 1,
             maxWidth: 800,
             background: "white",
             borderRadius: 8,
