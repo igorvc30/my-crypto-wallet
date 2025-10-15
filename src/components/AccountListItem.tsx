@@ -12,22 +12,26 @@ export default function AccountListItem({
   item,
   onClick,
 }: {
-  item: Account;
-  onClick: (accountId: string) => void;
+  item: Omit<Account, "userId">;
+  onClick?: (accountId: string) => void;
 }) {
   const handleItemClick = () => {
-    onClick(item.id);
+    onClick?.(item.id);
   };
 
   return (
     <List.Item
       key={item.id}
       onClick={handleItemClick}
-      style={{ cursor: "pointer" }}
+      style={onClick ? { cursor: "pointer" } : {}}
       actions={[
         <span>Created at {getFormattedFullDate(item.createdAt)}</span>,
-        <span>Last deposit {getTimeFromNow(item.lastDeposit)}</span>,
-        <span>Last transfer {getTimeFromNow(item.lastTransfer)}</span>,
+        item.lastDeposit && (
+          <span>Last deposit {getTimeFromNow(item.lastDeposit)}</span>
+        ),
+        item.lastTransfer && (
+          <span>Last transfer {getTimeFromNow(item.lastTransfer)}</span>
+        ),
       ]}
       extra={
         <div
@@ -65,11 +69,7 @@ export default function AccountListItem({
       />
 
       <Text strong>
-        Transfer Limit:{" "}
-        {getFormattedAmount({
-          currency: item.asset,
-          value: item.transferLimit,
-        })}
+        {`Transfer Limit: ${item.transferLimit} ${item.asset}`}
       </Text>
     </List.Item>
   );

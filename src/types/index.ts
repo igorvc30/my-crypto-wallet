@@ -15,8 +15,8 @@ export interface Account {
   transferLimit: number;
   balance: number;
   createdAt: string;
-  lastDeposit: string;
-  lastTransfer: string;
+  lastDeposit: string | null;
+  lastTransfer: string | null;
 }
 
 export interface GetAccountsResponse {

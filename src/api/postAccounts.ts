@@ -10,7 +10,7 @@ export default async function postAccount({
   userId: string;
   token: string;
   account: AddAccount;
-}): Promise<Account> {
+}): Promise<Omit<Account, "userId">> {
   const response = await fetch(`${apiUrl}/users/${userId}/accounts`, {
     method: "POST",
     headers: {

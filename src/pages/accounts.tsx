@@ -51,8 +51,8 @@ export default function AccountsPage() {
       setList((prevState) =>
         [...prevState, ...accountsData.accounts].sort(
           (a, b) =>
-            new Date(a.lastTransfer).getDate() -
-            new Date(b.lastTransfer).getDate(),
+            new Date(a?.lastTransfer ?? "").getDate() -
+            new Date(b?.lastTransfer ?? "").getDate(),
         ),
       );
     }
