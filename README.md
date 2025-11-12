@@ -1,5 +1,3 @@
-# Zero Hash Code Challenge
-
 ## Description
 
 0# - Crypto wallet
